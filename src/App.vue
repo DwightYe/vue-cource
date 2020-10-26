@@ -34,7 +34,7 @@
   opacity: 1;
 }
 .router-leave-active {
-  transition: opacity 1s;
+  transition: opacity .3s;
 }
 .router-leave-to {
   opacity: 0;
