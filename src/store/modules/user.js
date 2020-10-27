@@ -7,11 +7,20 @@ const getters = {
 }
 
 const mutations = {
-
+	SET_USER_NAME(state, params) {
+		state.userName = params
+	}
 }
 
 const actions = {
+	//rootState 根State
+	undateUserName({ commit, state, rootState, dispatch }){
+		//dispatch触发其他actions
+		dispatch('xxx')
+	},
+	xxx(){
 
+	}
 }
 
 export default {
@@ -20,5 +29,8 @@ export default {
 	state,
 	getters,
 	mutations,
-	actions
+	actions,
+	modules:{
+
+	}
 }

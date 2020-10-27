@@ -10,14 +10,16 @@
       }}
     </p>
     <p>userName:{{ userName }},firstLetter:{{ firstLetter }}</p>
-    <button @click="handleChangeAppName">修改AppName</button>
+    <button @click="handleChangeAppName">修改AppName和UserName</button>
+    <button @click="registerModule">动态注册模块</button>
+		<p v-for="(li,index) in todoList" :key="index"> {{ li }} </p>
   </div>
 </template>
 
 <script>
 import AInput from "_c/AInput.vue";
 import AShow from "_c/AShow.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "store",
   data() {
@@ -37,7 +39,9 @@ export default {
     ...mapState({
       appName: (state) => state.appName,
       userName: (state) => state.user.userName,
-      appVersion: (state) => state.appVersion,
+			appVersion: (state) => state.appVersion,
+			//动态添加的模块需要特殊处理否则报错
+      todoList: (state) => (state.user.todo ? state.user.todo.todoList : []),
     }),
     ...mapGetters({
       appWithVersion: "appWithVersion",
@@ -56,9 +60,27 @@ export default {
     AShow,
   },
   methods: {
+    ...mapMutations({
+      SET_APP_NAME: "SET_APP_NAME",
+      SET_USER_NAME: "user/SET_USER_NAME",
+    }),
+    ...mapActions({
+      undateAppName: "undateAppName",
+    }),
     handleChangeAppName() {
-      this.$store.commit("SET_APP_NAME", "newAppName");
-      this.$store.commit("SET_APP_VERSION");
+      //commit调用mutations  ，  dispatch 调用actions
+      // this.$store.commit("SET_APP_NAME", "newAppName");
+      // this.$store.commit("SET_APP_VERSION");
+      // this.SET_APP_NAME("newAppName");
+      // this.SET_USER_NAME("newUserName");
+      // this.undateAppName()
+      this.$store.dispatch("undateAppName");
+    },
+    registerModule() {
+      //registerModule动态注册模块 在user里添加todo模块
+      this.$store.registerModule(['user', 'todo'], {
+        state: { todoList: ["学习Mutations", "学习Actions"] },
+      });
     },
   },
 };

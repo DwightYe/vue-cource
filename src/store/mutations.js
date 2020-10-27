@@ -1,5 +1,7 @@
 import vue from 'vue'
 
+
+//同步修改操作
 const mutations = {
 	SET_APP_NAME(state, params) {
 		state.appName = params
