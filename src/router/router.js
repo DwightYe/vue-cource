@@ -10,8 +10,8 @@ export default [{
 	}),
 	//路由独享守卫 添加了beforeEnter()之后 一定要调用next() 否则不跳转
 	beforeEnter: ((to, from, next) => {
-		if (from.name == 'about') console.log('这是从about页过来的')
-		else console.log('这不是从about页过来的');
+		//if (from.name == 'about') console.log('这是从about页过来的')
+		//else console.log('这不是从about页过来的');
 		next()
 	})
 }, {

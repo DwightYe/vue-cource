@@ -4,11 +4,13 @@
     <button @click="handleClick('push')">跳转到argu</button>
     <button @click="handleClick('replace')">替换到parent</button>
     <p>{{ food }}</p>
+    <button @click="getInfo">请求数据</button>
   </div>
 </template>
 
 <script>
 import HelloWorld from "@/components/HelloWorld.vue";
+import { getUserInfo } from "@/api/user";
 
 export default {
   name: "Home",
@@ -30,9 +32,9 @@ export default {
   },
   //即将离开页面的时候触发 next(false)页面不跳转 可以使用this当前实例
   beforeRouteLeave(to, from, next) {
-		//confirm("您确定要离开吗？") ? next() : next(false);
-		next()
-	},
+    //confirm("您确定要离开吗？") ? next() : next(false);
+    next();
+  },
   methods: {
     handleClick(type) {
       if (type == "back") this.$router.go(-1);
@@ -48,6 +50,11 @@ export default {
       ) {
         this.$router.push({ name: `argu`, params: { name: "Dylan" } });
       } else if (type == "replace") this.$router.replace({ name: "Parent" });
+    },
+    getInfo() {
+      getUserInfo({ userId: 21 }).then((res) => {
+        console.log("res:", res);
+      });
     },
   },
 };
