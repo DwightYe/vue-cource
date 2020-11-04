@@ -4,7 +4,7 @@
       <router-link :to="{ name: 'home' }">Home</router-link> |
       <router-link :to="{ name: 'about' }">About</router-link>
     </div>
-		<!--
+    <!--
 			路由切换动效 多个组件用 transition-group 单个组件用 transition
 			需要为每个组件设置一个key值
 			给transition一个name值
@@ -34,7 +34,7 @@
   opacity: 1;
 }
 .router-leave-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 .router-leave-to {
   opacity: 0;
@@ -43,7 +43,6 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
