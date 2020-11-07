@@ -59,14 +59,18 @@ export default [{
 	path: "/count-to",
 	name: 'count_to',
 	component: () => import('@/views/count-to.vue')
-},{
+}, {
 	path: "/split-pane",
 	name: 'split_pane',
 	component: () => import('@/views/split-pane.vue')
-},{
-	path:"/render-page",
-	name:"render_page",
-	component:() => import('@/views/render-page.vue')
+}, {
+	path: "/render-page",
+	name: "render_page",
+	component: () => import('@/views/render-page.vue')
+}, {
+	path: "/menu-page",
+	name: "menu_page",
+	component: () => import('@/views/menu-page.vue')
 }, {
 	path: "*",
 	component: () => import('@/views/error_404.vue')
