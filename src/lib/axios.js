@@ -1,5 +1,6 @@
 import axios from "axios"
 import { baseURL } from '@/config/index'
+import { getToken } from '@/lib/util'
 
 class HttpRequest {
 	constructor(baseUrl = baseURL) {
@@ -26,6 +27,7 @@ class HttpRequest {
 			//Spin.show() loading效果
 			if (!Object.keys(this.queue).length) { /* Spin.show() */ }
 			this.queue[url] = true
+			config.headers['Authorization'] = getToken()
 			return config
 		}, error => {
 			return Promise.reject(error)
@@ -33,8 +35,8 @@ class HttpRequest {
 		//响应拦截器
 		instance.interceptors.response.use(res => {
 			delete this.queue[url]
-			const { data,status } = res
-			return { data,status }
+			const { data } = res
+			return data
 		}, error => {
 			delete this.queue[url]
 			return Promise.reject(error)

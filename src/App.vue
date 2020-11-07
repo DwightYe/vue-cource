@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link :to="{ name: 'home' }">Home</router-link> |
       <router-link :to="{ name: 'about' }">About</router-link>
-    </div>
+    </div> -->
     <!--
 			路由切换动效 多个组件用 transition-group 单个组件用 transition
 			需要为每个组件设置一个key值

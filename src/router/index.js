@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from "./router"
-import { setTitle } from "@/lib/util.js"
+import store from "@/store"
+import { setTitle,setToken , getToken } from "@/lib/util.js"
 
 Vue.use(VueRouter)
 
@@ -10,19 +11,32 @@ const router = new VueRouter({
 	routes
 })
 
-const HAS_LOGINED = true
+const HAS_LOGINED = false
 
 //全局守卫
 router.beforeEach((to, from, next) => {
 	to.meta && setTitle(to.meta.title)
-	if (to.name !== 'login') {
-		HAS_LOGINED ? next() : next({
-			name: 'login'
+	// if (to.name !== 'login') {
+	// 	HAS_LOGINED ? next() : next({
+	// 		name: 'login'
+	// 	})
+	// } else {
+	// 	HAS_LOGINED ? next({
+	// 		name: 'home'
+	// 	}) : next()
+	// }
+	const token = getToken()
+	if(token) {
+		store.dispatch('user/authorization', token).then(() =>{
+			if(to.name == "login") next({name:"home"})
+			else next()
+		}).catch(() =>{
+			setToken('')
+			next({ name: 'login' })
 		})
-	} else {
-		HAS_LOGINED ? next({
-			name: 'home'
-		}) : next()
+	}else {
+		if(to.name == 'login') next()
+		else next({ name : 'login' })
 	}
 })
 

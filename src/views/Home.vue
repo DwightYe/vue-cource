@@ -5,12 +5,14 @@
     <button @click="handleClick('replace')">替换到parent</button>
     <p>{{ food }}</p>
     <button @click="getInfo">请求数据</button>
+    <button @click="handleLogout">登出</button>
   </div>
 </template>
 
 <script>
 import HelloWorld from "@/components/HelloWorld.vue";
 import { getUserInfo } from "@/api/user";
+import { mapActions } from "vuex";
 
 export default {
   name: "Home",
@@ -36,6 +38,9 @@ export default {
     next();
   },
   methods: {
+    ...mapActions({
+      logout: "user/logout",
+    }),
     handleClick(type) {
       if (type == "back") this.$router.go(-1);
       //else if (type == "push") this.$router.push("/parent");
@@ -55,6 +60,10 @@ export default {
       getUserInfo({ userId: 21 }).then((res) => {
         console.log("res:", res);
       });
+    },
+    handleLogout() {
+      this.logout();
+      this.$router.push("/login");
     },
   },
 };
